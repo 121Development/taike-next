@@ -87,7 +87,8 @@ export default function NoteApp() {
               }}
               className="w-full h-32 resize-none"
             />
-            <div className="flex justify-end">
+            <div className="flex justify-between items-center">
+              <p className="text-[10px] text-red-500/70">This is a design mock, AI and other functions not enabled</p>
               <Button onClick={saveNote} size="sm">
                 Save Note
               </Button>
