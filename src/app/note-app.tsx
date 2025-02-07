@@ -62,7 +62,7 @@ export default function NoteApp() {
             </Button>
             <div>
               <h1 className="text-2xl font-bold">Taike</h1>
-              <p className="text-sm text-muted-foreground">AI note taking</p>
+              <p className="text-xs text-muted-foreground">AI note taking</p>
             </div>
           </div>
           <div className="space-y-2">
