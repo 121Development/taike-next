@@ -101,13 +101,13 @@ export default function NoteApp() {
                   <p className="text-sm mb-2">{note.content}</p>
                 </CardContent>
                 <CardFooter className="flex justify-between items-center text-xs text-muted-foreground">
-                  <div>
+                  <div className="flex items-center gap-1 text-[10px]">
                     <span>{note.date}</span>
-                    <div className="relative ml-2 inline-block group">
+                    <div className="relative inline-block group">
                       <Button 
                         variant="secondary" 
                         size="sm" 
-                        className="h-6 text-xs gap-1"
+                        className="h-5 text-[10px] gap-1 px-2"
                         onClick={() => setOpenDropdownId(openDropdownId === note.id ? null : note.id)}
                       >
                         {note.category}
@@ -118,7 +118,7 @@ export default function NoteApp() {
                           {categories.map((category) => (
                             <button
                               key={category}
-                              className="block w-full px-4 py-1 text-left text-xs hover:bg-accent"
+                              className="block w-full px-2 py-1 text-left text-[10px] hover:bg-accent"
                               onClick={() => {
                                 updateNoteCategory(note.id, category);
                                 setOpenDropdownId(null);
@@ -131,13 +131,13 @@ export default function NoteApp() {
                       </div>
                     </div>
                   </div>
-                  <div className="space-x-2">
-                    <Button variant="ghost" size="sm">
-                      <Edit className="h-4 w-4 mr-1" />
+                  <div className="flex gap-1">
+                    <Button variant="ghost" size="sm" className="h-5 text-[10px] px-2">
+                      <Edit className="h-3 w-3 mr-1" />
                       Edit
                     </Button>
-                    <Button variant="ghost" size="sm">
-                      <Share className="h-4 w-4 mr-1" />
+                    <Button variant="ghost" size="sm" className="h-5 text-[10px] px-2">
+                      <Share className="h-3 w-3 mr-1" />
                       Share
                     </Button>
                   </div>
