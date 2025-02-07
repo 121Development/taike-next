@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect, useCallback, KeyboardEvent } from "react"
 import { Button } from "../components/ui/button"
 import { ClientTextarea } from "../components/client-textarea"
 import { Card, CardContent, CardFooter } from "../components/ui/card"
@@ -79,6 +79,12 @@ export default function NoteApp() {
               placeholder="Write your note here..."
               value={currentNote}
               onChange={(e) => setCurrentNote(e.target.value)}
+              onKeyDown={(e: KeyboardEvent<HTMLTextAreaElement>) => {
+                if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) {
+                  e.preventDefault();
+                  saveNote();
+                }
+              }}
               className="w-full h-32 resize-none"
             />
             <div className="flex justify-end">
