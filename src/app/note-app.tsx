@@ -61,7 +61,7 @@ export default function NoteApp() {
               <Menu className="h-6 w-6" />
             </Button>
             <div>
-              <h1 className="text-2xl font-bold">Taike</h1>
+              <h1 className="text-3xl font-bold">Taike</h1>
               <p className="text-xs text-muted-foreground">AI note taking</p>
             </div>
           </div>
