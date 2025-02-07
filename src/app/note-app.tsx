@@ -1,11 +1,11 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Button } from "~/components/ui/button"
-import { Textarea } from "~/components/ui/textarea"
-import { Card, CardContent, CardFooter } from "~/components/ui/card"
+import { Button } from "../components/ui/button"
+import { Textarea } from "../components/ui/textarea"
+import { Card, CardContent, CardFooter } from "../components/ui/card"
 import { Share, Edit, Menu } from "lucide-react"
-import { SidePanel } from "~/components/side-panel"
+import { SidePanel } from "../components/side-panel"
 import { useTheme } from "next-themes"
 
 interface Note {
