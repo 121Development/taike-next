@@ -7,6 +7,7 @@ import { Card, CardContent, CardFooter } from "../components/ui/card"
 import { Share, Edit, Menu } from "lucide-react"
 import { SidePanel } from "../components/side-panel"
 import { useTheme } from "next-themes"
+import { getRandomQuote } from "~/lib/quotes"
 
 interface Note {
   id: number
@@ -67,7 +68,7 @@ export default function NoteApp() {
           </div>
           <div className="space-y-2">
             <Textarea
-              placeholder="Note..."
+              placeholder={getRandomQuote()}
               value={currentNote}
               onChange={(e) => setCurrentNote(e.target.value)}
               className="w-full h-32 resize-none"
