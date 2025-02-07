@@ -96,7 +96,7 @@ export default function NoteApp() {
                 <CardFooter className="flex justify-between items-center text-xs text-muted-foreground">
                   <div>
                     <span>{note.date}</span>
-                    <div className="relative ml-2 inline-block">
+                    <div className="relative ml-2 inline-block group">
                       <Button 
                         variant="secondary" 
                         size="sm" 
@@ -105,7 +105,7 @@ export default function NoteApp() {
                         {note.category}
                         <ChevronDown className="h-3 w-3" />
                       </Button>
-                      <div className="absolute left-0 mt-1 w-32 rounded-md shadow-lg bg-popover border border-border z-10 hidden group-hover:block hover:block">
+                      <div className="absolute left-0 mt-1 w-32 rounded-md shadow-lg bg-popover border border-border z-50 hidden group-hover:block hover:block">
                         <div className="py-1">
                           {categories.map((category) => (
                             <button
