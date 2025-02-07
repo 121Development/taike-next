@@ -68,7 +68,8 @@ export default function NoteApp() {
           </div>
           <div className="space-y-2">
             <ClientTextarea
-              placeholder={getRandomQuote()}
+              randomPlaceholder
+              placeholder="Write your note here..."
               value={currentNote}
               onChange={(e) => setCurrentNote(e.target.value)}
               className="w-full h-32 resize-none"
