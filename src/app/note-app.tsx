@@ -60,7 +60,10 @@ export default function NoteApp() {
             <Button variant="ghost" size="icon" onClick={toggleSidePanel}>
               <Menu className="h-6 w-6" />
             </Button>
-            <h1 className="text-2xl font-bold">Taike</h1>
+            <div>
+              <h1 className="text-2xl font-bold">Taike</h1>
+              <p className="text-sm text-muted-foreground">AI note taking</p>
+            </div>
           </div>
           <div className="space-y-2">
             <Textarea
