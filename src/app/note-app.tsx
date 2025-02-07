@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { Button } from "../components/ui/button"
-import { Textarea } from "../components/ui/textarea"
+import { ClientTextarea } from "../components/client-textarea"
 import { Card, CardContent, CardFooter } from "../components/ui/card"
 import { Share, Edit, Menu } from "lucide-react"
 import { SidePanel } from "../components/side-panel"
@@ -67,7 +67,7 @@ export default function NoteApp() {
             </div>
           </div>
           <div className="space-y-2">
-            <Textarea
+            <ClientTextarea
               placeholder={getRandomQuote()}
               value={currentNote}
               onChange={(e) => setCurrentNote(e.target.value)}
