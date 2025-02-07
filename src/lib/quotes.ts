@@ -13,7 +13,17 @@ export const writingQuotes = [
   "Your story matters (even if it's about ninja hamsters)",
   "Write like nobody's reading (they probably aren't anyway)",
   "Channel your inner Shakespeare (typos included)",
-  "Time to turn coffee into words"
+  "Time to turn coffee into words",
+  "You had me at 'Chapter One'",
+  "In a world where anything is possible... write that",
+  "Keep calm and write on",
+  "Loading creativity... please wait",
+  "Error 404: Writer's block not found",
+  "Don't tell me the moon is shining; show me the glint of light on broken glass. - Anton Chekhov",
+  "Start writing, no matter what. The water does not flow until the faucet is turned on. - Louis L'Amour",
+  "The road to hell is paved with adverbs. - Stephen King",
+  "Writing is the painting of the voice. - Voltaire",
+  "Either write something worth reading or do something worth writing. - Benjamin Franklin"
 ];
 
 export const getRandomQuote = () => {
