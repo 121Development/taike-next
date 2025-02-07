@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { Button } from "../components/ui/button"
 import { ClientTextarea } from "../components/client-textarea"
 import { Card, CardContent, CardFooter } from "../components/ui/card"
@@ -23,6 +23,7 @@ export default function NoteApp() {
   const [currentNote, setCurrentNote] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("General")
   const [isSidePanelOpen, setIsSidePanelOpen] = useState(false)
+  const [openDropdownId, setOpenDropdownId] = useState<number | null>(null)
   const { setTheme } = useTheme()
 
   useEffect(() => {
@@ -101,17 +102,21 @@ export default function NoteApp() {
                         variant="secondary" 
                         size="sm" 
                         className="h-6 text-xs gap-1"
+                        onClick={() => setOpenDropdownId(openDropdownId === note.id ? null : note.id)}
                       >
                         {note.category}
                         <ChevronDown className="h-3 w-3" />
                       </Button>
-                      <div className="absolute left-0 mt-1 w-32 rounded-md shadow-lg bg-popover border border-border z-50 hidden group-hover:block hover:block">
+                      <div className={`absolute left-0 mt-1 w-32 rounded-md shadow-lg bg-popover border border-border z-50 ${openDropdownId === note.id ? 'block' : 'hidden'}`}>
                         <div className="py-1">
                           {categories.map((category) => (
                             <button
                               key={category}
                               className="block w-full px-4 py-1 text-left text-xs hover:bg-accent"
-                              onClick={() => updateNoteCategory(note.id, category)}
+                              onClick={() => {
+                                updateNoteCategory(note.id, category);
+                                setOpenDropdownId(null);
+                              }}
                             >
                               {category}
                             </button>
