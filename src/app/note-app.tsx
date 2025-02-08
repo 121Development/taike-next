@@ -89,9 +89,14 @@ export default function NoteApp() {
             />
             <div className="flex justify-between items-center">
               <p className="text-[10px] text-red-500/70">This is a design mock, AI and other functions not enabled</p>
-              <Button onClick={saveNote} size="sm">
+              <div className="flex gap-2">
+                <Button variant="secondary" size="sm">
+                  Chat
+                </Button>
+                <Button onClick={saveNote} size="sm">
                 Save Note
-              </Button>
+                </Button>
+              </div>
             </div>
           </div>
 
