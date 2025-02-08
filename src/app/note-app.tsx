@@ -65,21 +65,21 @@ export default function NoteApp() {
           />
         )}
         <div className="flex-1 p-4 space-y-6 overflow-auto">
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-4 mb-4">
             <Button variant="ghost" size="icon" onClick={toggleSidePanel}>
               <Menu className="h-6 w-6" />
             </Button>
-            <div>
+            <Input 
+              type="search"
+              placeholder="Search..."
+              className="w-32"
+            />
+            <div className="ml-auto">
               <h1 className="text-3xl font-bold">Taike</h1>
               <p className="text-xs text-muted-foreground">AI note taking</p>
             </div>
           </div>
           <div className="space-y-4">
-            <Input 
-              type="search"
-              placeholder="Search notes..."
-              className="w-full"
-            />
             <ClientTextarea
               randomPlaceholder
               placeholder="Write your note here..."
