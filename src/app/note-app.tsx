@@ -4,7 +4,8 @@ import { useState, useEffect, useCallback, KeyboardEvent } from "react"
 import { Button } from "../components/ui/button"
 import { ClientTextarea } from "../components/client-textarea"
 import { Card, CardContent, CardFooter } from "../components/ui/card"
-import { Share, Edit, Menu, ChevronDown } from "lucide-react"
+import { Search, Share, Edit, Menu, ChevronDown } from "lucide-react"
+import { Input } from "../components/ui/input"
 import { SidePanel } from "../components/side-panel"
 import { useTheme } from "next-themes"
 import { getRandomQuote } from "~/lib/quotes"
@@ -73,7 +74,12 @@ export default function NoteApp() {
               <p className="text-xs text-muted-foreground">AI note taking</p>
             </div>
           </div>
-          <div className="space-y-2">
+          <div className="space-y-4">
+            <Input 
+              type="search"
+              placeholder="Search notes..."
+              className="w-full"
+            />
             <ClientTextarea
               randomPlaceholder
               placeholder="Write your note here..."
