@@ -1,23 +1,13 @@
-import FirecrawlApp from '@mendable/firecrawl-js';
+import FirecrawlApp, { ScrapeResponse } from '@mendable/firecrawl-js';
 
 const app = new FirecrawlApp({apiKey: process.env.NEXT_PUBLIC_FIRECRAWL_API_KEY});
 
-export async function crawlResponse(text: string): Promise<string> {
-  try {
-    const response = await app.crawlUrl(text, {
-      limit: 100,
-      scrapeOptions: {
-        formats: ['markdown', 'html'],
-      }
-    });
+export async function crawlResponse(text: string): Promise<ScrapeResponse> {
+    const scrapeResult = await app.scrapeUrl(text, { formats: ['markdown', 'html'] }) as ScrapeResponse;
 
-    if (!response.success) {
-      throw new Error(`Failed to crawl: ${response.error}`);
-    }
+if (!scrapeResult.success) {
+  throw new Error(`Failed to scrape: ${scrapeResult.error}`)
+}
 
-    return response.content ?? 'No content found';
-  } catch (error) {
-    console.error('Error in crawlResponse:', error);
-    throw new Error('Failed to process URL');
-  }
+console.log(scrapeResult);
 }
