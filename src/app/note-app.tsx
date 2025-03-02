@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, KeyboardEvent } from "react"
 import { Button } from "../components/ui/button"
 import { ClientTextarea } from "../components/client-textarea"
 import { summarizeText } from "~/lib/openai"
-import { crawlResponse } from "~/lib/firecrawl"
+import { scrapeUrl } from "~/lib/firecrawl"
 import { Card, CardContent, CardFooter } from "../components/ui/card"
 import { Share, Edit, Menu, ChevronDown } from "lucide-react"
 import { SidePanel } from "../components/side-panel"
@@ -110,7 +110,7 @@ export default function NoteApp() {
                     setCurrentNote("");
                     
                     try {
-                      const extracted = await crawlResponse(originalText);
+                      const extracted = await scrapeUrl(originalText);
                       setNotes(prevNotes => prevNotes.map(note => 
                         note.id === tempNote.id 
                           ? { ...note, content: extracted }
