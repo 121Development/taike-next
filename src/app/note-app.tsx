@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, KeyboardEvent } from "react"
 import { Button } from "../components/ui/button"
 import { ClientTextarea } from "../components/client-textarea"
+import { summarizeText } from "~/lib/openai"
 import { Card, CardContent, CardFooter } from "../components/ui/card"
 import { Share, Edit, Menu, ChevronDown } from "lucide-react"
 import { SidePanel } from "../components/side-panel"
@@ -90,11 +91,25 @@ export default function NoteApp() {
             <div className="flex justify-between items-center">
               <p className="text-[10px] text-red-500/70">This is a design mock, AI and other functions not enabled</p>
               <div className="flex gap-2">
+                <Button 
+                  variant="secondary" 
+                  size="sm"
+                  onClick={async () => {
+                    try {
+                      const summary = await summarizeText(currentNote);
+                      setCurrentNote(summary);
+                    } catch (error) {
+                      console.error('Failed to summarize:', error);
+                    }
+                  }}
+                >
+                  Summarize
+                </Button>
                 <Button variant="secondary" size="sm">
                   Chat
                 </Button>
                 <Button onClick={saveNote} size="sm">
-                Save Note
+                  Save Note
                 </Button>
               </div>
             </div>
