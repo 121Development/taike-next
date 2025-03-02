@@ -95,11 +95,33 @@ export default function NoteApp() {
                   variant="secondary" 
                   size="sm"
                   onClick={async () => {
+                    if (!currentNote.trim()) return;
+                    
+                    const tempNote: Note = {
+                      id: Date.now(),
+                      content: "Summarizing...",
+                      date: new Date().toLocaleDateString(),
+                      category: selectedCategory,
+                    };
+                    
+                    setNotes([tempNote, ...notes]);
+                    const originalText = currentNote;
+                    setCurrentNote("");
+                    
                     try {
-                      const summary = await summarizeText(currentNote);
-                      setCurrentNote(summary);
+                      const summary = await summarizeText(originalText);
+                      setNotes(prevNotes => prevNotes.map(note => 
+                        note.id === tempNote.id 
+                          ? { ...note, content: summary }
+                          : note
+                      ));
                     } catch (error) {
                       console.error('Failed to summarize:', error);
+                      setNotes(prevNotes => prevNotes.map(note => 
+                        note.id === tempNote.id 
+                          ? { ...note, content: "Failed to summarize. Please try again." }
+                          : note
+                      ));
                     }
                   }}
                 >
