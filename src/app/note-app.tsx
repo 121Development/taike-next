@@ -110,7 +110,8 @@ export default function NoteApp() {
                     setCurrentNote("");
                     
                     try {
-                      const extracted = await scrapeUrl(originalText);
+                      const scrapedText = await scrapeUrl(originalText);
+                      const extracted = await summarizeText(scrapedText);
                       setNotes(prevNotes => prevNotes.map(note => 
                         note.id === tempNote.id 
                           ? { ...note, content: extracted }
