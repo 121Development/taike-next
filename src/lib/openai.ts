@@ -29,7 +29,7 @@ export async function summarizeText(text: string): Promise<string> {
       max_tokens: 150,
     });
 
-    return response.choices[0]?.message?.content || "Failed to summarize";
+    return response.choices[0]?.message?.content ?? "Failed to summarize";
   } catch (error) {
     console.error('Error summarizing text:', error);
     throw new Error('Failed to summarize text');
