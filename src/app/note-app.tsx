@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback, KeyboardEvent } from "react"
 import { Button } from "../components/ui/button"
 import { ClientTextarea } from "../components/client-textarea"
 import { summarizeText } from "~/lib/openai"
+import { crawlResponse } from "~/lib/firecrawl"
 import { Card, CardContent, CardFooter } from "../components/ui/card"
 import { Share, Edit, Menu, ChevronDown } from "lucide-react"
 import { SidePanel } from "../components/side-panel"
@@ -91,6 +92,42 @@ export default function NoteApp() {
             <div className="flex justify-between items-center">
               <p className="text-[10px] text-red-500/70">This is a design mock, AI and other functions not enabled</p>
               <div className="flex gap-2">
+                <Button 
+                  variant="secondary" 
+                  size="sm"
+                  onClick={async () => {
+                    if (!currentNote.trim()) return;
+                    
+                    const tempNote: Note = {
+                      id: Date.now(),
+                      content: "Extracting content...",
+                      date: new Date().toLocaleDateString(),
+                      category: selectedCategory,
+                    };
+                    
+                    setNotes([tempNote, ...notes]);
+                    const originalText = currentNote;
+                    setCurrentNote("");
+                    
+                    try {
+                      const extracted = await crawlResponse(originalText);
+                      setNotes(prevNotes => prevNotes.map(note => 
+                        note.id === tempNote.id 
+                          ? { ...note, content: extracted }
+                          : note
+                      ));
+                    } catch (error) {
+                      console.error('Failed to extract:', error);
+                      setNotes(prevNotes => prevNotes.map(note => 
+                        note.id === tempNote.id 
+                          ? { ...note, content: "Failed to extract content. Please try again." }
+                          : note
+                      ));
+                    }
+                  }}
+                >
+                  Extract
+                </Button>
                 <Button 
                   variant="secondary" 
                   size="sm"

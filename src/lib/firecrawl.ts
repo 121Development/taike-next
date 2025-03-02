@@ -1,14 +1,23 @@
 import FirecrawlApp from '@mendable/firecrawl-js';
 
-const app = new FirecrawlApp({apiKey: "fc-YOUR_API_KEY"});
+const app = new FirecrawlApp({apiKey: process.env.NEXT_PUBLIC_FIRECRAWL_API_KEY});
 
-const crawlResponse = await app.crawlUrl('https://firecrawl.dev', {
-  limit: 100,
-  scrapeOptions: {
-    formats: ['markdown', 'html'],
+export async function crawlResponse(text: string): Promise<string> {
+  try {
+    const response = await app.crawlUrl(text, {
+      limit: 100,
+      scrapeOptions: {
+        formats: ['markdown', 'html'],
+      }
+    });
+
+    if (!response.success) {
+      throw new Error(`Failed to crawl: ${response.error}`);
+    }
+
+    return response.content || 'No content found';
+  } catch (error) {
+    console.error('Error in crawlResponse:', error);
+    throw new Error('Failed to process URL');
   }
-})
-
-if (!crawlResponse.success) {
-  throw new Error(`Failed to crawl: ${crawlResponse.error}`)
 }
