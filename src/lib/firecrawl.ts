@@ -1,7 +1,9 @@
 import FirecrawlApp, { ScrapeResponse } from '@mendable/firecrawl-js';
+import { env } from "~/env";
 
-const app = new FirecrawlApp({apiKey: process.env.NEXT_PUBLIC_FIRECRAWL_API_KEY});
-const apiKey = process.env.NEXT_PUBLIC_FIRECRAWL_API_KEY;
+
+const app = new FirecrawlApp({apiKey: env.FIRECRAWL_API_KEY});
+const apiKey = env.FIRECRAWL_API_KEY;
 console.log("Firecrawl app created");
 export async function scrapeUrl(text: string): Promise<String> {
     const scrapeResult = await app.scrapeUrl(text, { formats: ['markdown'] }) as ScrapeResponse;

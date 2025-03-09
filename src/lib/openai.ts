@@ -1,11 +1,12 @@
 import OpenAI from 'openai';
+import { env } from "~/env";
 
-if (!process.env.NEXT_PUBLIC_OPENAI_API_KEY) {
-  throw new Error('NEXT_PUBLIC_OPENAI_API_KEY is not set in environment variables');
+if (!env.OPENAI_API_KEY) {
+  throw new Error('OPENAI_API_KEY is not set in environment variables');
 }
 
 const openai = new OpenAI({
-  apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY, dangerouslyAllowBrowser: true,
+  apiKey: env.OPENAI_API_KEY
 });
 
 export async function summarizeText(text: string): Promise<string> {
