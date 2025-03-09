@@ -15,6 +15,7 @@ export async function scrapeUrl(text: string): Promise<String> {
 }
 
 export async function llmScrape(url: string): Promise<string> {
+    console.log("LLM scrape url:", url);
     try {
         const response = await fetch('https://api.firecrawl.dev/v1/scrape', {
             method: 'POST',
@@ -23,7 +24,7 @@ export async function llmScrape(url: string): Promise<string> {
                 'Authorization': `Bearer ${apiKey}`
             },
             body: JSON.stringify({
-                url: url,
+                url: url.trim(),
                 formats: ["json"],
                 jsonOptions: {
                     prompt: "Extract the essential item with a short description or a short summary of the page content"
@@ -37,6 +38,7 @@ export async function llmScrape(url: string): Promise<string> {
         }
 
         const data = await response.json();
+        console.log("LLM scrape data:", data);
         
         if (!data.success) {
             throw new Error(`Failed to scrape: ${data.error || 'Unknown error'}`);

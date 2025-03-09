@@ -13,3 +13,25 @@
 - Create categories management page
 - Enable note sharing feature
 - Add markdown support for notes
+
+## Components in app
+
+#### ENV Management
+https://env.t3.gg/docs/core
+
+#### Auth
+https://clerk.com/
+
+
+## Changes in config
+Prevent eslint and typescript errors from breaking the build
+Next-config.js
+```js
+
+    eslint: {
+        ignoreDuringBuilds: true,
+    },
+    typescript: {
+        ignoreBuildErrors: true,
+    },
+```

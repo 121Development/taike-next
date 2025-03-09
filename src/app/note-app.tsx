@@ -110,6 +110,7 @@ export default function NoteApp() {
                     setCurrentNote("");
                     
                     try {
+                        console.log("LLM Extracting...");
                       const extracted = await llmScrape(originalText);
                       setNotes(prevNotes => prevNotes.map(note => 
                         note.id === tempNote.id 
