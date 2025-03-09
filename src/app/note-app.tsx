@@ -3,11 +3,10 @@
 import { useState, useEffect, useCallback, KeyboardEvent } from "react"
 import { Button } from "../components/ui/button"
 import { ClientTextarea } from "../components/client-textarea"
-import { summarizeText } from "~/lib/openai"
-import { scrapeUrl, llmScrape } from "~/lib/firecrawl"
+//import { SummarizeComponent } from "../components/summarize"
+//import { scrapeUrl, llmScrape } from "~/lib/firecrawl"
 import { Card, CardContent, CardFooter } from "../components/ui/card"
 import { Share, Edit, Menu, ChevronDown } from "lucide-react"
-import { SidePanel } from "../components/side-panel"
 import { useTheme } from "next-themes"
 import { getRandomQuote } from "~/lib/quotes"
 
@@ -24,7 +23,6 @@ export default function NoteApp() {
   const [notes, setNotes] = useState<Note[]>([])
   const [currentNote, setCurrentNote] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("General")
-  const [isSidePanelOpen, setIsSidePanelOpen] = useState(false)
   const [openDropdownId, setOpenDropdownId] = useState<number | null>(null)
   const { setTheme } = useTheme()
 
@@ -51,25 +49,11 @@ export default function NoteApp() {
     }
   }
 
-  const toggleSidePanel = () => {
-    setIsSidePanelOpen(!isSidePanelOpen)
-  }
-
   return (
     <div className="flex justify-center min-h-screen bg-background">
       <div className="w-full max-w-[960px] flex bg-background text-foreground">
-        {isSidePanelOpen && (
-          <SidePanel
-            categories={categories}
-            selectedCategory={selectedCategory}
-            onSelectCategory={setSelectedCategory}
-          />
-        )}
         <div className="flex-1 p-4 space-y-6 overflow-auto">
           <div className="flex items-center justify-between mb-4">
-            <Button variant="ghost" size="icon" onClick={toggleSidePanel}>
-              <Menu className="h-6 w-6" />
-            </Button>
             <div>
               <h1 className="text-3xl font-bold">Taike</h1>
               <p className="text-xs text-muted-foreground">AI note taking</p>
@@ -92,119 +76,6 @@ export default function NoteApp() {
             <div className="flex justify-between items-center">
               <p className="text-[10px] text-red-500/70">This is a design mock, AI and other functions not enabled</p>
               <div className="flex gap-2">
-                <Button 
-                  variant="secondary" 
-                  size="sm"
-                  onClick={async () => {
-                    if (!currentNote.trim()) return;
-                    
-                    const tempNote: Note = {
-                      id: Date.now(),
-                      content: "LLM Extracting...",
-                      date: new Date().toLocaleDateString(),
-                      category: selectedCategory,
-                    };
-                    
-                    setNotes([tempNote, ...notes]);
-                    const originalText = currentNote;
-                    setCurrentNote("");
-                    
-                    try {
-                        console.log("LLM Extracting...");
-                      const extracted = await llmScrape(originalText);
-                      setNotes(prevNotes => prevNotes.map(note => 
-                        note.id === tempNote.id 
-                          ? { ...note, content: extracted }
-                          : note
-                      ));
-                    } catch (error) {
-                      console.error('Failed to LLM extract:', error);
-                      setNotes(prevNotes => prevNotes.map(note => 
-                        note.id === tempNote.id 
-                          ? { ...note, content: "Failed to LLM extract content. Please try again." }
-                          : note
-                      ));
-                    }
-                  }}
-                >
-                  LLM Extract
-                </Button>
-                <Button 
-                  variant="secondary" 
-                  size="sm"
-                  onClick={async () => {
-                    if (!currentNote.trim()) return;
-                    
-                    const tempNote: Note = {
-                      id: Date.now(),
-                      content: "Extracting content...",
-                      date: new Date().toLocaleDateString(),
-                      category: selectedCategory,
-                    };
-                    
-                    setNotes([tempNote, ...notes]);
-                    const originalText = currentNote;
-                    setCurrentNote("");
-                    
-                    try {
-                      const scrapedText = await scrapeUrl(originalText);
-                      const extracted = await summarizeText(scrapedText);
-                      setNotes(prevNotes => prevNotes.map(note => 
-                        note.id === tempNote.id 
-                          ? { ...note, content: extracted }
-                          : note
-                      ));
-                    } catch (error) {
-                      console.error('Failed to extract:', error);
-                      setNotes(prevNotes => prevNotes.map(note => 
-                        note.id === tempNote.id 
-                          ? { ...note, content: "Failed to extract content. Please try again." }
-                          : note
-                      ));
-                    }
-                  }}
-                >
-                  Extract
-                </Button>
-                <Button 
-                  variant="secondary" 
-                  size="sm"
-                  onClick={async () => {
-                    if (!currentNote.trim()) return;
-                    
-                    const tempNote: Note = {
-                      id: Date.now(),
-                      content: "Summarizing...",
-                      date: new Date().toLocaleDateString(),
-                      category: selectedCategory,
-                    };
-                    
-                    setNotes([tempNote, ...notes]);
-                    const originalText = currentNote;
-                    setCurrentNote("");
-                    
-                    try {
-                      const summary = await summarizeText(originalText);
-                      setNotes(prevNotes => prevNotes.map(note => 
-                        note.id === tempNote.id 
-                          ? { ...note, content: summary }
-                          : note
-                      ));
-                    } catch (error) {
-                      console.error('Failed to summarize:', error);
-                      setNotes(prevNotes => prevNotes.map(note => 
-                        note.id === tempNote.id 
-                          ? { ...note, content: "Failed to summarize. Please try again." }
-                          : note
-                      ));
-                    }
-                  }}
-                >
-                  Summarize
-                </Button>
-                <Button variant="secondary" size="sm">
-                  Chat
-                </Button>
                 <Button onClick={saveNote} size="sm">
                   Save Note
                 </Button>
