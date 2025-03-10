@@ -35,3 +35,7 @@ Next-config.js
         ignoreBuildErrors: true,
     },
 ```
+=======
+# Todo
+- [ ] Hook up DB
+- [ ] Add auth
